@@ -1,0 +1,518 @@
+version: "3.1"
+
+nlu:
+# --- GREETINGS ---
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - hey there
+    - good afternoon
+    - sup
+    - what's up
+    - yo
+    - greetings
+    - hi there
+    - hola
+    - howdy
+    - hey bot
+    - hello bot
+    - hi bot
+    - good day
+    - top of the morning
+    - what's good
+    - hey friend
+    - hello friend
+    - hi friend
+    - morning
+    - evening
+    - afternoon
+    - g'day
+    - hey there friend
+    - hello how are you
+    - hi how are you doing
+    - hey what's up
+    - hello there bot
+    - hi chatbot
+    - hey chatbot
+    - greetings bot
+    - salutations
+    - hey dude
+    - hi mate
+    - hello mate
+    - wassup
+    - sup bot
+    - hey hey
+    - hello hello
+    - hi hi
+    - heya
+    - hiya
+    - hey you
+    - hello you
+    - hi you
+
+# --- AFFIRMATIONS ---
+- intent: affirm
+  examples: |
+    - yes
+    - yeah
+    - sure
+    - of course
+    - that sounds good
+    - correct
+    - absolutely
+    - yep
+    - right
+    - ok
+    - okay
+    - perfect
+    - sounds good
+    - yes please
+    - definitely
+    - for sure
+    - indeed
+    - certainly
+    - affirmative
+    - uh huh
+    - yup
+    - ya
+    - totally
+    - exactly
+    - precisely
+    - you bet
+    - I agree
+    - that's right
+    - that's correct
+    - agreed
+    - fine
+    - alright
+    - all right
+    - sure thing
+    - sounds great
+    - works for me
+    - I'm in
+    - let's do it
+    - go ahead
+    - proceed
+    - continue
+
+# --- DENIALS ---
+- intent: deny
+  examples: |
+    - no
+    - nope
+    - never
+    - I don't think so
+    - not really
+    - no thanks
+    - no way
+    - not interested
+    - nah
+    - not now
+    - negative
+    - nay
+    - not at all
+    - absolutely not
+    - definitely not
+    - I don't want to
+    - I refuse
+    - no thank you
+    - not for me
+    - I'll pass
+    - pass
+    - skip
+    - cancel
+    - stop
+    - don't
+    - don't want
+    - not going to
+    - won't
+    - can't
+    - I disagree
+    - that's wrong
+    - incorrect
+    - false
+    - not correct
+    - I don't agree
+    - no sir
+    - no ma'am
+    - nuh uh
+    - no no
+    - never mind
+    - forget it
+
+# --- PARCEL TRACKING ---
+- intent: track_by_number
+  examples: |
+    - track [PK12345](tracking_number)
+    - [PK12345](tracking_number)
+    - My tracking number is [PK54321](tracking_number)
+    - Can you tell me the status of [PK11223](tracking_number)?
+    - Please check tracking number [55667](tracking_number)
+    - Where is my order [PK88990](tracking_number)?
+    - Any update on [PK55555](tracking_number)?
+    - status of [123456789](tracking_number)
+    - track my parcel [PK98765](tracking_number)
+    - I want to track [12345](tracking_number)
+    - where is my package [PK11111](tracking_number)
+    - check [PK22222](tracking_number) for me
+    - locate parcel [33333](tracking_number)
+    - [PK44444](tracking_number) status please
+    - find my order [PK55555](tracking_number)
+    - track parcel [PK66666](tracking_number)
+    - tracking [PK77777](tracking_number)
+    - what's the status of [PK88888](tracking_number)
+    - check my parcel [PK99999](tracking_number)
+    - where's my shipment [PK10101](tracking_number)
+    - locate my package [PK20202](tracking_number)
+    - find parcel [PK30303](tracking_number)
+    - check order [PK40404](tracking_number)
+    - track shipment [PK50505](tracking_number)
+    - parcel status [PK60606](tracking_number)
+    - order status [PK70707](tracking_number)
+    - shipment status [PK80808](tracking_number)
+    - package status [PK90909](tracking_number)
+    - I need to track [12121](tracking_number)
+    - can you track [13131](tracking_number)
+    - help me track [14141](tracking_number)
+    - please track [15151](tracking_number)
+    - I'd like to track [16161](tracking_number)
+    - could you track [17171](tracking_number)
+    - track this [18181](tracking_number)
+    - check this [19191](tracking_number)
+    - my tracking number is [PK12345](tracking_number)
+    - my tracking number is [PK12345](tracking_number)
+    - tracking number is [PK12345](tracking_number)
+
+# --- PARCEL ORDER ---
+- intent: ask_order
+  examples: |
+    - How can I place a parcel order?
+    - I want to send a parcel
+    - How do I ship my package?
+    - Tell me the steps to book a parcel delivery
+    - What is the procedure to send a parcel?
+    - I need to send something
+    - How to order parcel delivery?
+    - I want to ship a package
+    - How can I send my parcel?
+    - Steps to book parcel
+    - parcel booking process
+    - how to send parcel
+    - send a package
+    - ship a parcel
+    - deliver a package
+    - courier a parcel
+    - I need parcel delivery
+    - I want parcel service
+    - how do I send packages
+    - package delivery service
+    - parcel shipping
+    - how to courier
+    - courier service
+    - delivery service
+    - shipping service
+    - send something
+    - my orders
+    - place order
+    - parcel booking
+
+# --- BUS BOOKING ---
+- intent: ask_how_to_book_bus
+  examples: |
+    - How can I book a bus ticket?
+    - I want to travel, how do I book a bus?
+    - Tell me the steps to reserve a bus seat
+    - How do I buy a bus ticket online?
+    - book a bus for me
+    - I need to book a bus
+    - how to reserve bus ticket
+    - bus booking process
+    - I want to book a seat
+    - steps to book bus
+    - can I book a bus ticket?
+    - help me book a bus
+    - bus ticket booking
+    - reserve bus seat
+    - buy bus ticket
+    - purchase bus ticket
+    - get bus ticket
+    - bus reservation
+    - ticket reservation
+    - seat reservation
+    - how to book bus
+    - how to reserve bus
+    - how to buy ticket
+    - how to purchase ticket
+    - booking procedure
+    - reservation procedure
+    - ticket booking steps
+    - seat booking steps
+    - I want to travel by bus
+    - I need bus ticket
+    - I want bus ticket
+    - looking to book bus
+    - looking to reserve seat
+    - want to reserve bus
+    - want to book ticket
+    - need to book ticket
+    - need to reserve seat
+    - help with bus booking
+    - assist with reservation
+    - guide me to book bus
+    - show me how to book
+    - explain bus booking
+    - bus ticket purchase
+    - online bus booking
+    - book bus online
+    - reserve bus online
+    - buy ticket online
+    - how can I get a bus ticket
+    - where can I book bus
+
+# --- BUS SCHEDULE ---
+- intent: ask_bus_schedule
+  examples: |
+    - What is the bus schedule from [Lahore](source_city) to [Islamabad](destination_city)?
+    - When is the next bus to [Karachi](destination_city)?
+    - Are there buses from [Multan](source_city) to [Rawalpindi](destination_city) today?
+    - Bus schedule for [Lahore](source_city) to [Sialkot](destination_city)
+    - When does the bus from [Hyderabad](source_city) to [Karachi](destination_city) depart?
+    - show me buses from [Islamabad](source_city) to [Peshawar](destination_city)
+    - [Faisalabad](source_city) to [Lahore](destination_city) bus timings
+    - any buses from [Gujranwala](source_city) to [Multan](destination_city)?
+    - I want to go from [Bahawalpur](source_city) to [Sukkur](destination_city)
+    - check bus schedule [Sargodha](source_city) to [Islamabad](destination_city)
+    - bus timing [Karachi](source_city) [Lahore](destination_city)
+    - [Peshawar](source_city) to [Rawalpindi](destination_city) buses today
+    - show schedule from [Sialkot](source_city) to [Gujrat](destination_city)
+    - buses available from [Lahore](source_city) to [Karachi](destination_city)
+    - what time buses leave [Islamabad](source_city) for [Lahore](destination_city)
+    - departure times [Multan](source_city) to [Faisalabad](destination_city)
+    - arrival times [Rawalpindi](source_city) to [Peshawar](destination_city)
+    - schedule [Karachi](source_city) [Hyderabad](destination_city)
+    - timings [Lahore](source_city) [Multan](destination_city)
+    - bus times [Sialkot](source_city) [Lahore](destination_city)
+    - when do buses run [Islamabad](source_city) [Karachi](destination_city)
+    - bus frequency [Lahore](source_city) [Islamabad](destination_city)
+    - how many buses [Karachi](source_city) [Lahore](destination_city)
+    - buses per day [Multan](source_city) [Lahore](destination_city)
+    - daily buses [Lahore](source_city) [Peshawar](destination_city)
+    - morning buses [Islamabad](source_city) [Lahore](destination_city)
+    - evening buses [Karachi](source_city) [Islamabad](destination_city)
+    - night buses [Lahore](source_city) [Karachi](destination_city)
+    - afternoon buses [Multan](source_city) [Islamabad](destination_city)
+    - early morning [Lahore](source_city) [Islamabad](destination_city) buses
+    - late night [Karachi](source_city) [Lahore](destination_city) buses
+    - first bus [Islamabad](source_city) [Peshawar](destination_city)
+    - last bus [Lahore](source_city) [Multan](destination_city)
+    - earliest bus [Karachi](source_city) [Islamabad](destination_city)
+    - latest bus [Multan](source_city) [Lahore](destination_city)
+    - I need bus schedule [Lahore](source_city) [Karachi](destination_city)
+    - bus schedule from [Lahore](source_city) to [Islamabad](destination_city)
+    - bus schedule from [Lahore](source_city) to [Islamabad](destination_city)
+
+# --- PRICING ---
+- intent: ask_pricing
+  examples: |
+    - show me the ticket price
+    - how much does it cost?
+    - calculate fare
+    - ticket fare from Lahore to Karachi
+    - I want to check bus prices
+    - what's the price
+    - pricing information
+    - how much is the ticket
+    - cost of bus ticket
+    - parcel delivery charges
+    - what are your rates
+    - price list
+    - fare calculator
+    - ticket cost
+    - bus fare
+    - delivery cost
+    - shipping cost
+    - courier charges
+    - parcel charges
+    - ticket charges
+    - how much to send parcel
+    - how much for bus ticket
+    - what's the fare
+    - what's the cost
+    - what's the charge
+    - tell me the price
+    - tell me the cost
+    - tell me the fare
+    - give me the price
+    - show me prices
+    - show me costs
+    - show me fares
+    - pricing details
+    - cost details
+    - fare details
+    - price information
+    - cost information
+    - fare information
+    - how expensive
+    - is it expensive
+    - is it cheap
+    - affordable
+    - rates
+    - charges
+    - fees
+    - tariff
+    - pricing
+    - costing
+    - how much money
+    - what amount
+    - ticket price list
+
+# --- SUPPORT ---
+- intent: ask_support
+  examples: |
+    - I need help
+    - contact support
+    - how can I talk to admin?
+    - I want to report an issue
+    - connect me to support
+    - help me please
+    - customer service
+    - I have a problem
+    - need assistance
+    - talk to someone
+    - speak with admin
+    - contact admin
+    - help desk
+    - support team
+    - get help
+    - need help
+    - require assistance
+    - assistance needed
+    - help needed
+    - support needed
+    - I have an issue
+    - I have a complaint
+    - I have a query
+    - I have a question
+    - facing problem
+    - facing issue
+    - having trouble
+    - having problem
+    - something wrong
+    - not working
+    - problem with
+    - issue with
+    - trouble with
+    - can someone help
+    - can you help
+    - help me
+    - assist me
+    - support me
+    - guide me
+    - I'm stuck
+    - I'm confused
+    - I don't understand
+    - how do I contact
+    - how to contact
+    - reach support
+    - reach admin
+    - talk to support
+    - speak to support
+    - call support
+    - email support
+    - message support
+
+# --- FLEET ROUTE (Added to fix unused warning) ---
+- intent: check_fleet_route
+  examples: |
+    - [isl](source_city) to [bjy](destination_city) route
+    - route from [islamabad](source_city) to [bahawalpur](destination_city)
+    - [lhr](source_city) to [khi](destination_city) koi bus hai?
+    - [karachi](source_city) to [lahore](destination_city) route kya hai
+    - is there a bus from [isl](source_city) to [mul](destination_city)
+    - [peshawar](source_city) to [karachi](destination_city) direct bus
+    - koi bus hai [lhr](source_city) se [bjy](destination_city)
+    - [isl](source_city) to [fsd](destination_city) route batao
+    - route check karo [mul](source_city) to [khi](destination_city)
+    - direct route [lahore](source_city) to [bahawalpur](destination_city)
+    - [bjy](source_city) se [isl](destination_city) jane ki bus
+    - any bus [khi](source_city) to [psh](destination_city)
+    - [isl](source_city) to [lhr](destination_city) route available hai
+    - fleet route [mul](source_city) to [fsd](destination_city)
+
+# --- REGEX PATTERNS ---
+- regex: tracking_number
+  examples: |
+    - [A-Z]{2}\d{5,10}
+    - \d{6,12}
+
+# --- LOOKUP TABLES ---
+- lookup: source_city
+  examples: |
+    - Lahore
+    - Karachi
+    - Islamabad
+    - Faisalabad
+    - Multan
+    - Peshawar
+    - Gujrat
+    - Sialkot
+    - Bahawalpur
+    - Sukkur
+    - Sargodha
+    - Hyderabad
+    - Gujranwala
+    - Rawalpindi
+    - Quetta
+
+- lookup: destination_city
+  examples: |
+    - Lahore
+    - Karachi
+    - Islamabad
+    - Faisalabad
+    - Multan
+    - Peshawar
+    - Gujrat
+    - Sialkot
+    - Bahawalpur
+    - Sukkur
+    - Sargodha
+    - Hyderabad
+    - Gujranwala
+    - Rawalpindi
+    - Quetta
+- intent: ask_bus_schedule
+  examples: |
+    - karcagu is phiswar
+    - khi to pesh
+    - karachi to peshawar
+    - lhore to khi
+    - lahore to karachi
+    - isl to lhr
+    - islamabad to lahore
+    - bus schedule khi to pesh
+    - karci se peshawar
+    - karchi to pishwar
+
+- intent: ask_bus_schedule
+  examples: |
+    - karcagu is phiswar
+    - khi to pesh
+    - karachi to peshawar
+    - lhore to khi
+    - lahore to karachi
+    - isl to lhr
+    - islamabad to lahore
+    - bus from khi to pesh
+    - karci se peshawar
+    - karchi to pishwar
+    - Lahore se Karachi
+    - Karachi to Peshawar bus schedule
+    - tell me bus from karachi to peshawar
+    - khi se pesh kitny bjy hai
+    - karachi to peshawar time

@@ -1,0 +1,109 @@
+version: "3.1"
+
+stories:
+
+# --- PARCEL TRACKING STORIES ---
+
+- story: Track parcel with number provided
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: track_by_number
+    entities:
+      - tracking_number
+  - action: action_track_parcel
+
+- story: Track parcel then ask for help
+  steps:
+  - intent: track_by_number
+    entities:
+      - tracking_number
+  - action: action_track_parcel
+  - intent: ask_support
+  - action: action_contact_admin
+
+# --- BUS BOOKING STORIES ---
+
+- story: User asks how to book then checks schedule
+  steps:
+  - intent: ask_how_to_book_bus
+  - action: utter_how_to_book_bus
+  - intent: affirm
+  - action: utter_affirm
+  - intent: ask_bus_schedule
+    entities:
+      - source_city
+      - destination_city
+  - action: action_show_bus_schedule
+
+- story: User checks schedule directly
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_bus_schedule
+    entities:
+      - source_city
+      - destination_city
+  - action: action_show_bus_schedule
+  - intent: ask_pricing
+  - action: action_calculate_price
+
+- story: User asks about pricing then books
+  steps:
+  - intent: ask_pricing
+  - action: action_calculate_price
+  - intent: ask_how_to_book_bus
+  - action: utter_how_to_book_bus
+
+# --- PARCEL ORDER STORIES ---
+
+- story: User wants to send parcel
+  steps:
+  - intent: ask_order
+  - action: utter_ask_order
+  - intent: affirm
+  - action: utter_affirm
+  - intent: ask_pricing
+  - action: action_calculate_price
+
+# --- SUPPORT STORIES ---
+
+- story: User needs help immediately
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_support
+  - action: action_contact_admin
+  - intent: affirm
+  - action: utter_affirm
+  - intent: goodbye
+  - action: utter_goodbye
+
+# --- MIXED CONVERSATION ---
+
+- story: User explores multiple features
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_bus_schedule
+    entities:
+      - source_city
+      - destination_city
+  - action: action_show_bus_schedule
+  - intent: affirm
+  - action: utter_affirm
+  - intent: track_by_number
+    entities:
+      - tracking_number
+  - action: action_track_parcel
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: User confused then gets help
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: deny
+  - action: utter_deny
+  - intent: ask_support
+  - action: action_contact_admin

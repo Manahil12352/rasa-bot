@@ -1,0 +1,26 @@
+[
+  {
+    "name": "tracking_number",
+    "pattern": "PK\\d{5}"
+  },
+  {
+    "name": "tracking_number",
+    "pattern": "[A-Z]{2}\\d{5}"
+  },
+  {
+    "name": "tracking_number",
+    "pattern": "[A-Z]{2}\\d{7,10}"
+  },
+  {
+    "name": "tracking_number",
+    "pattern": "\\d{5,12}"
+  },
+  {
+    "name": "source_city",
+    "pattern": "(\\bLahore\\b|\\bKarachi\\b|\\bIslamabad\\b|\\bFaisalabad\\b|\\bMultan\\b|\\bPeshawar\\b|\\bGujrat\\b|\\bSialkot\\b|\\bBahawalpur\\b|\\bSukkur\\b|\\bSargodha\\b|\\bHyderabad\\b|\\bGujranwala\\b|\\bRawalpindi\\b|\\bQuetta\\b)"
+  },
+  {
+    "name": "destination_city",
+    "pattern": "(\\bLahore\\b|\\bKarachi\\b|\\bIslamabad\\b|\\bFaisalabad\\b|\\bMultan\\b|\\bPeshawar\\b|\\bGujrat\\b|\\bSialkot\\b|\\bBahawalpur\\b|\\bSukkur\\b|\\bSargodha\\b|\\bHyderabad\\b|\\bGujranwala\\b|\\bRawalpindirasa\\b|\\bQuetta\\b)"
+  }
+]

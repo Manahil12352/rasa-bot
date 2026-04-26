@@ -1,0 +1,105 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - track_by_number
+  - track_parcel
+  - ask_order
+  - ask_how_to_book_bus
+  - ask_bus_schedule
+  - ask_pricing
+  - ask_support
+  - check_fleet_route
+
+entities:
+  - tracking_number
+  - source_city
+  - destination_city
+
+slots:
+  tracking_number:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: tracking_number
+  
+  source_city:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: source_city
+  
+  destination_city:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: destination_city
+
+responses:
+  utter_greet:
+    - text: "Hey! How are you?"
+  
+  utter_goodbye:
+    - text: "Goodbye! Have a nice day."
+  
+  utter_affirm:
+    - text: "Great! 😊"
+  
+  utter_deny:
+    - text: "That's okay."
+  
+  utter_track_by_number:
+    - text: "Parcel {tracking_number} is in transit."
+  
+  utter_ask_order:
+    - text: "To place order: Provide pickup and delivery address."
+  
+  utter_how_to_book_bus:
+    - text: "Book bus online at our website."
+  
+  utter_ask_bus_schedule:
+    - text: "Let me check bus schedule for you."
+  
+  utter_pricing_calculator:
+    - text: "Prices: Lahore-Karachi Rs.3000-4500"
+  
+  utter_support_info:
+    - text: "Support: +92-300-1234567"
+  
+  utter_contact_admin:
+    - text: "Contact: support@yourapp.com"
+  
+  utter_fleet_route_info:
+    - text: "Yes, buses available on this route."
+  
+  utter_default:
+    - text: "Sorry, I didn't understand."
+  
+  utter_cheer_up:
+    - text: "Cheer up! 😊"
+  
+  utter_did_that_help:
+    - text: "Did that help?"
+  
+  utter_happy:
+    - text: "Great! Keep smiling 😄"
+  
+  utter_ask_tracking_number:
+    - text: "Please provide tracking number."
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+actions:
+  - action_show_bus_schedule
+  - action_track_parcel
+  - action_calculate_price
+  - action_contact_admin
+  - action_llm_fallback

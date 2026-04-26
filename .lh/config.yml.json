@@ -1,0 +1,26 @@
+{
+    "sourceFile": "config.yml",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1774800616623,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1774802025962,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,17 +17,14 @@\n   - name: EntitySynonymMapper\n   - name: ResponseSelector\n     epochs: 100\n   - name: FallbackClassifier\n-    threshold: 0.3\n-    ambiguity_threshold: 0.1\n+    threshold: 0.2\n+    ambiguity_threshold: 0.05\n \n policies:\n   - name: MemoizationPolicy\n   - name: RulePolicy\n-  - name: UnexpecTEDIntentPolicy\n-    max_history: 5\n-    epochs: 100\n   - name: TEDPolicy\n     max_history: 5\n     epochs: 100\n     constrain_similarities: true\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1774868705744,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,29 +2,35 @@\n \n language: en\n \n pipeline:\n-  - name: WhitespaceTokenizer\n-  - name: RegexFeaturizer\n-  - name: LexicalSyntacticFeaturizer\n-  - name: CountVectorsFeaturizer\n-  - name: CountVectorsFeaturizer\n-    analyzer: char_wb\n-    min_ngram: 1\n-    max_ngram: 4\n-  - name: DIETClassifier\n-    epochs: 100\n-    constrain_similarities: true\n-  - name: EntitySynonymMapper\n-  - name: ResponseSelector\n-    epochs: 100\n-  - name: FallbackClassifier\n-    threshold: 0.2\n-    ambiguity_threshold: 0.05\n+- name: WhitespaceTokenizer\n+- name: RegexFeaturizer\n+- name: LexicalSyntacticFeaturizer\n+- name: CountVectorsFeaturizer\n+- name: CountVectorsFeaturizer\n+  analyzer: char_wb\n+  min_ngram: 1\n+  max_ngram: 4\n\\ No newline at end of file\n+- name: DIETClassifier\n+  epochs: 100\n+  constrain_similarities: true\n+- name: EntitySynonymMapper\n+- name: ResponseSelector\n+  epochs: 100\n+- name: FallbackClassifier\n+  threshold: 0.2\n+  ambiguity_threshold: 0.05\n \n policies:\n-  - name: MemoizationPolicy\n+- name: MemoizationPolicy\n+- name: RulePolicy\n+- name: TEDPolicy\n+  max_history: 5\n+  epochs: 100\n+  constrain_similarities: true\n+assistant_id: 20260329-213501-taxonomic-carriage\n+policies:\n   - name: RulePolicy\n-  - name: TEDPolicy\n-    max_history: 5\n-    epochs: 100\n-    constrain_similarities: true\n+    core_fallback_threshold: 0.7\n+    core_fallback_action_name: \"action_llm_fallback\"\n+    enable_fallback_prediction: true\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1774800616623,
+            "name": "Commit-0",
+            "content": "version: \"3.1\"\n\nlanguage: en\n\npipeline:\n  - name: WhitespaceTokenizer\n  - name: RegexFeaturizer\n  - name: LexicalSyntacticFeaturizer\n  - name: CountVectorsFeaturizer\n  - name: CountVectorsFeaturizer\n    analyzer: char_wb\n    min_ngram: 1\n    max_ngram: 4\n  - name: DIETClassifier\n    epochs: 100\n    constrain_similarities: true\n  - name: EntitySynonymMapper\n  - name: ResponseSelector\n    epochs: 100\n  - name: FallbackClassifier\n    threshold: 0.3\n    ambiguity_threshold: 0.1\n\npolicies:\n  - name: MemoizationPolicy\n  - name: RulePolicy\n  - name: UnexpecTEDIntentPolicy\n    max_history: 5\n    epochs: 100\n  - name: TEDPolicy\n    max_history: 5\n    epochs: 100\n    constrain_similarities: true"
+        }
+    ]
+}

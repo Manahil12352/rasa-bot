@@ -1,0 +1,17 @@
+version: "3.1"
+
+stories:
+- story: bus schedule
+  steps:
+    - intent: ask_bus_schedule
+    - action: action_show_bus_schedule
+
+- story: track parcel
+  steps:
+    - intent: track_by_number
+    - action: action_track_parcel
+
+- story: happy path
+  steps:
+    - intent: greet
+    - action: utter_greet

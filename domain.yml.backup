@@ -1,0 +1,123 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - track_by_number
+  - track_parcel
+  - ask_order
+  - ask_how_to_book_bus
+  - ask_bus_schedule
+  - ask_pricing
+  - ask_support
+  - check_fleet_route
+
+
+entities:
+  - tracking_number
+  - source_city
+  - destination_city
+
+
+slots:
+  tracking_number:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: tracking_number
+
+responses:
+  utter_greet:
+    - text: "Hey! How are you?"
+  utter_fleet_route_info:
+    - text: "Yes, we have buses on that route. Would you like to check the schedule?"
+
+
+  utter_ask_tracking_number:
+    - text: "Please provide your tracking number."
+
+
+  utter_goodbye:
+    - text: "Goodbye! Have a nice day."
+    - text: "See you later! Take care."
+    - text: "Bye! Hope to chat again soon."
+
+  utter_affirm:
+    - text: "Great! 😊"
+    - text: "Awesome! Let's continue."
+    - text: "Good to hear that!"
+
+  utter_deny:
+    - text: "That's okay."
+    - text: "I got you."
+
+  utter_track_by_number:
+    - text: "The status of parcel {tracking_number} is: In Transit."
+    - text: "Parcel {tracking_number} is currently being processed."
+    - text: "Parcel is in warehouse."
+
+  utter_ask_order:
+    - text: |
+        To place a parcel order, follow these steps:
+        1. Provide the pickup address.
+        2. Give the receiver’s address.
+        3. Specify the parcel details (weight, size).
+        4. Make the payment online or at the counter.
+        5. Track your parcel using your tracking number.
+
+  utter_how_to_book_bus:
+    - text: "You can book a bus ticket by visiting our website or app. Just select your cities, choose a date and time, pick a seat, and pay online."
+    - text: "Booking a bus is easy! Go to our app, choose your route and date, select a seat, pay, and your ticket will be sent to you."
+
+  utter_contact_admin:
+  - text: "Contact support:"
+    buttons:
+      - title: "Call Admin"
+        payload: "+923001234567"
+      - title: "Email Admin"
+        payload: "support@yourapp.com"
+
+
+  utter_ask_bus_schedule:
+  - text: "Let me check the bus schedule for you."
+
+
+  utter_pricing_calculator:
+    - text: |
+        You can use our pricing calculator to estimate ticket fares.  
+        [Open Pricing Calculator](https://yourapp.com/pricing-calculator)
+
+  utter_support_info:
+    - text: |
+        Sure! You can reach our support team here:  
+        📞 Call us: +92-300-1234567  
+        📧 Email: support@yourapp.com  
+        💼 Admin Contact: [Click Here](https://yourapp.com/admin-support)
+
+  utter_default:
+    - text: "Sorry, I didn’t quite get that. Can you rephrase?"
+    
+  utter_cheer_up:
+    - text: "Here’s something to cheer you up 😊"
+      image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+    - text: "Did that help you?"
+
+  utter_happy:
+    - text: "Great! Keep smiling 😄"
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+actions:
+  - action_track_parcel
+  - action_show_bus_schedule
+  - action_calculate_price
+  - action_contact_admin 
+
+  utter_bus_schedule:
+    - text: "🚌 BUS SCHEDULE:\n\n• Lahore to Karachi: 9AM, 2PM, 8PM, 10PM | Rs.3000-4500\n• Karachi to Lahore: 7AM, 12PM, 6PM, 9PM | Rs.3000-4500\n• Lahore to Peshawar: 7AM, 10AM, 1PM, 4PM, 8PM, 11PM | Rs.1500-2500\n• Peshawar to Lahore: 6AM, 9AM, 12PM, 3PM, 7PM, 10PM | Rs.1500-2500\n• Islamabad to Peshawar: 8AM, 11AM, 3PM, 7PM | Rs.700-1000\n• Peshawar to Islamabad: 7AM, 10AM, 2PM, 6PM | Rs.700-1000\n\n📞 Booking: 1234-567890"

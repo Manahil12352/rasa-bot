@@ -1,0 +1,18 @@
+{
+    "sourceFile": "data_download.py/data_download.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1774804594708,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1774804594708,
+            "name": "Commit-0",
+            "content": "from datasets import load_dataset\n\ndataset = load_dataset(\"tuetschek/multiatis\")\nprint(dataset)\nprint(dataset['train'][0])  # preview first entry"
+        }
+    ]
+}

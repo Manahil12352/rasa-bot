@@ -1,0 +1,26 @@
+{
+    "sourceFile": "endpoints.yml",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1771081767145,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1774803557257,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,2 +1,21 @@\n+# Endpoints configuration for RASA\n+\n+# Action server - for custom actions\n action_endpoint:\n   url: \"http://localhost:5055/webhook\"\n+\n+# Tracker store - uncomment to use database\n+#tracker_store:\n+#  type: sql\n+#  dialect: \"postgresql\"\n+#  url: \"localhost\"\n+#  db: \"rasa\"\n+#  username: \"user\"\n+#  password: \"password\"\n+\n+# Event broker - uncomment if needed\n+#event_broker:\n+#  url: \"localhost\"\n+#  username: \"username\"\n+#  password: \"password\"\n+#  queue: \"queue\"rasa train\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1774803565295,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,2 +1,21 @@\n+# Endpoints configuration for RASA\n+\n+# Action server - for custom actions\n action_endpoint:\n   url: \"http://localhost:5055/webhook\"\n+\n+# Tracker store - uncomment to use database\n+#tracker_store:\n+#  type: sql\n+#  dialect: \"postgresql\"\n+#  url: \"localhost\"\n+#  db: \"rasa\"\n+#  username: \"user\"\n+#  password: \"password\"\n+\n+# Event broker - uncomment if needed\n+#event_broker:\n+#  url: \"localhost\"\n+#  username: \"username\"\n+#  password: \"password\"\n+#  queue: \"queue\"rasa train\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1771081767145,
+            "name": "Commit-0",
+            "content": "ç"
+        }
+    ]
+}

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVU Bus Assistant - AI Chatbot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .chat-container {
+            width: 450px;
+            max-width: 100%;
+            height: 650px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .chat-header h2 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .chat-header p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .user-message {
+            text-align: right;
+            margin: 10px 0;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .user-message span {
+            background: #007bff;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            max-width: 80%;
+            font-size: 14px;
+            word-wrap: break-word;
+        }
+        
+        .bot-message {
+            text-align: left;
+            margin: 10px 0;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .bot-message span {
+            background: #e0e0e0;
+            color: #333;
+            padding: 12px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            max-width: 80%;
+            font-size: 14px;
+            word-wrap: break-word;
+            white-space: pre-line;
+        }
+        
+        .typing-indicator {
+            text-align: left;
+            margin: 10px 0;
+        }
+        
+        .typing-indicator span {
+            background: #e0e0e0;
+            color: #666;
+            padding: 12px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 14px;
+        }
+        
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #ddd;
+            gap: 10px;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .chat-input input:focus {
+            border-color: #007bff;
+        }
+        
+        .chat-input button {
+            padding: 12px 24px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        
+        .chat-input button:hover {
+            background: #1a252f;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 10px;
+            background: white;
+            border-top: 1px solid #eee;
+        }
+        
+        .suggestion-btn {
+            background: #f0f0f0;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .suggestion-btn:hover {
+            background: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>🚌 NOVU Bus Assistant</h2>
+            <p>Ask me about bus schedules, parcel tracking, pricing & support!</p>
+        </div>
+        
+        <div class="chat-messages" id="messages">
+            <div class="bot-message">
+                <span>👋 Hello! I am NOVU.<br><br>
+                I can help you with:<br>
+                • 🚌 Bus schedules (e.g., "Lahore to Karachi bus")<br>
+                • 📦 Parcel tracking (e.g., "PK12345")<br>
+                • 💰 Pricing information<br>
+                • 📞 Customer support<br><br>
+                How can I help you today?</span>
+            </div>
+        </div>
+        
+        <div class="suggestions">
+            <button class="suggestion-btn" onclick="sendSuggestion('lahore to karachi bus')">🚌 Lahore→Karachi</button>
+            <button class="suggestion-btn" onclick="sendSuggestion('isl to lhr')">🚌 Islamabad→Lahore</button>
+            <button class="suggestion-btn" onclick="sendSuggestion('khi to pesh')">🚌 Karachi→Peshawar</button>
+            <button class="suggestion-btn" onclick="sendSuggestion('pk12345')">📦 Track Parcel</button>
+            <button class="suggestion-btn" onclick="sendSuggestion('price')">💰 Pricing</button>
+            <button class="suggestion-btn" onclick="sendSuggestion('help')">📞 Support</button>
+        </div>
+        
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Type your message..." onkeypress="if(event.key==='Enter') sendMessage()">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // Show typing indicator
+            showTyping();
+            
+            try {
+                const response = await fetch('http://localhost:5005/webhooks/rest/webhook', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ sender: 'web_user', message: message })
+                });
+                
+                const data = await response.json();
+                removeTyping();
+                
+                const botReply = data[0]?.text || "Sorry, I didn't understand. Please try again!";
+                addMessage(botReply, 'bot');
+            } catch (error) {
+                removeTyping();
+                addMessage('❌ Error: RASA server not running. Please make sure it is started.', 'bot');
+            }
+        }
+        
+        function sendSuggestion(message) {
+            document.getElementById('userInput').value = message;
+            sendMessage();
+        }
+        
+        function addMessage(text, sender) {
+            const messagesDiv = document.getElementById('messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `${sender}-message`;
+            
+            // Handle line breaks in bot messages
+            if (sender === 'bot') {
+                messageDiv.innerHTML = `<span>${text.replace(/\n/g, '<br>')}</span>`;
+            } else {
+                messageDiv.innerHTML = `<span>${text}</span>`;
+            }
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+        
+        function showTyping() {
+            const messagesDiv = document.getElementById('messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.id = 'typing-indicator';
+            typingDiv.innerHTML = '<span>NOVU is typing...</span>';
+            messagesDiv.appendChild(typingDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+        
+        function removeTyping() {
+            const typing = document.getElementById('typing-indicator');
+            if (typing) typing.remove();
+        }
+    </script>
+</body>
+</html>

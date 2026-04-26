@@ -1,0 +1,72 @@
+version: "3.1"
+
+rules:
+
+# --- BASIC CONVERSATION RULES ---
+
+- rule: Respond to greeting
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: Say goodbye anytime
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Handle affirm
+  steps:
+  - intent: affirm
+  - action: utter_affirm
+
+- rule: Handle deny
+  steps:
+  - intent: deny
+  - action: utter_deny
+
+# --- PARCEL TRACKING ---
+
+- rule: Track parcel by number
+  steps:
+  - intent: track_by_number
+  - action: action_track_parcel
+
+- rule: Explain how to place parcel order
+  steps:
+  - intent: ask_order
+  - action: utter_ask_order
+
+# --- BUS SCHEDULE ---
+
+- rule: Show bus schedule
+  steps:
+  - intent: ask_bus_schedule
+  - action: action_show_bus_schedule
+
+- rule: Explain how to book a bus
+  steps:
+  - intent: ask_how_to_book_bus
+  - action: utter_how_to_book_bus
+
+# --- PRICING ---
+
+- rule: Show pricing information
+  steps:
+  - intent: ask_pricing
+  - action: action_calculate_price
+
+# --- SUPPORT ---
+
+- rule: Provide support contact
+  steps:
+  - intent: ask_support
+  - action: action_contact_admin
+
+- rule: LLM fallback when low confidence
+  steps:
+  - intent: nlu_fallback
+  - action: action_llm_fallback
+- rule: Ask for tracking number
+  steps:
+    - intent: track_parcel
+    - action: utter_ask_tracking_number

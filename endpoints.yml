@@ -1,0 +1,21 @@
+# Endpoints configuration for RASA
+
+# Action server - for custom actions
+action_endpoint:
+  url: "http://localhost:5055/webhook"
+
+# Tracker store - uncomment to use database
+#tracker_store:
+#  type: sql
+#  dialect: "postgresql"
+#  url: "localhost"
+#  db: "rasa"
+#  username: "user"
+#  password: "password"
+
+# Event broker - uncomment if needed
+#event_broker:
+#  url: "localhost"
+#  username: "username"
+#  password: "password"
+#  queue: "queue"rasa train

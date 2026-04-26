@@ -1,0 +1,36 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-destination_city",
+      "2": "I-destination_city",
+      "3": "L-destination_city",
+      "4": "U-destination_city",
+      "5": "B-source_city",
+      "6": "I-source_city",
+      "7": "L-source_city",
+      "8": "U-source_city",
+      "9": "B-tracking_number",
+      "10": "I-tracking_number",
+      "11": "L-tracking_number",
+      "12": "U-tracking_number",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-destination_city": 1,
+      "I-destination_city": 2,
+      "L-destination_city": 3,
+      "U-destination_city": 4,
+      "B-source_city": 5,
+      "I-source_city": 6,
+      "L-source_city": 7,
+      "U-source_city": 8,
+      "B-tracking_number": 9,
+      "I-tracking_number": 10,
+      "L-tracking_number": 11,
+      "U-tracking_number": 12,
+      "O": 0
+    },
+    "num_tags": 13
+  }
+]

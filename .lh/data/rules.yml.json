@@ -1,0 +1,34 @@
+{
+    "sourceFile": "data/rules.yml",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 4,
+            "patches": [
+                {
+                    "date": 1774803557252,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1774868683510,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -59,5 +59,10 @@\n \n - rule: Provide support contact\n   steps:\n   - intent: ask_support\n-  - action: action_contact_admin\n\\ No newline at end of file\n+  - action: action_contact_admin\n+\n+- rule: LLM fallback when low confidence\n+  steps:\n+  - intent: nlu_fallback\n+  - action: action_llm_fallback\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1777224737989,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,13 @@\n version: \"3.1\"\n \n rules:\n+- rule: Force parcel tracking intent\n+  steps:\n+  - intent: track_parcel\n+  - action: utter_ask_tracking_number\n \n+\n # --- BASIC CONVERSATION RULES ---\n \n - rule: Respond to greeting\n   steps:\n@@ -23,20 +28,32 @@\n   steps:\n   - intent: deny\n   - action: utter_deny\n \n+\n # --- PARCEL TRACKING ---\n \n+# ✅ NEW RULE (CRITICAL FIX)\n+- rule: Ask for tracking number\n+  steps:\n+  - intent: track_parcel\n+  - action: utter_ask_tracking_number\n+\n+# Existing rule (keep it)\n - rule: Track parcel by number\n   steps:\n   - intent: track_by_number\n   - action: action_track_parcel\n \n+\n+# --- PARCEL ORDER ---\n+\n - rule: Explain how to place parcel order\n   steps:\n   - intent: ask_order\n   - action: utter_ask_order\n \n+\n # --- BUS SCHEDULE ---\n \n - rule: Show bus schedule\n   steps:\n@@ -47,22 +64,27 @@\n   steps:\n   - intent: ask_how_to_book_bus\n   - action: utter_how_to_book_bus\n \n+\n # --- PRICING ---\n \n - rule: Show pricing information\n   steps:\n   - intent: ask_pricing\n   - action: action_calculate_price\n \n+\n # --- SUPPORT ---\n \n - rule: Provide support contact\n   steps:\n   - intent: ask_support\n   - action: action_contact_admin\n \n+\n+# --- FALLBACK ---\n\\ No newline at end of file\n+\n - rule: LLM fallback when low confidence\n   steps:\n   - intent: nlu_fallback\n-  - action: action_llm_fallback\n+  - action: action_llm_fallback\n"
+                },
+                {
+                    "date": 1777225717075,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,13 +1,8 @@\n version: \"3.1\"\n \n rules:\n-- rule: Force parcel tracking intent\n-  steps:\n-  - intent: track_parcel\n-  - action: utter_ask_tracking_number\n \n-\n # --- BASIC CONVERSATION RULES ---\n \n - rule: Respond to greeting\n   steps:\n@@ -28,32 +23,20 @@\n   steps:\n   - intent: deny\n   - action: utter_deny\n \n-\n # --- PARCEL TRACKING ---\n \n-# ✅ NEW RULE (CRITICAL FIX)\n-- rule: Ask for tracking number\n-  steps:\n-  - intent: track_parcel\n-  - action: utter_ask_tracking_number\n-\n-# Existing rule (keep it)\n - rule: Track parcel by number\n   steps:\n   - intent: track_by_number\n   - action: action_track_parcel\n \n-\n-# --- PARCEL ORDER ---\n-\n - rule: Explain how to place parcel order\n   steps:\n   - intent: ask_order\n   - action: utter_ask_order\n \n-\n # --- BUS SCHEDULE ---\n \n - rule: Show bus schedule\n   steps:\n@@ -64,27 +47,22 @@\n   steps:\n   - intent: ask_how_to_book_bus\n   - action: utter_how_to_book_bus\n \n-\n # --- PRICING ---\n \n - rule: Show pricing information\n   steps:\n   - intent: ask_pricing\n   - action: action_calculate_price\n \n-\n # --- SUPPORT ---\n \n - rule: Provide support contact\n   steps:\n   - intent: ask_support\n   - action: action_contact_admin\n \n-\n-# --- FALLBACK ---\n-\n - rule: LLM fallback when low confidence\n   steps:\n   - intent: nlu_fallback\n   - action: action_llm_fallback\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1777227973982,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,5 +64,9 @@\n \n - rule: LLM fallback when low confidence\n   steps:\n   - intent: nlu_fallback\n-  - action: action_llm_fallback\n\\ No newline at end of file\n+  - action: action_llm_fallback\n+- rule: Ask for tracking number\n+  steps:\n+    - intent: track_parcel\n+    - action: utter_ask_tracking_number\n"
+                }
+            ],
+            "date": 1774803557252,
+            "name": "Commit-0",
+            "content": "version: \"3.1\"\n\nrules:\n\n# --- BASIC CONVERSATION RULES ---\n\n- rule: Respond to greeting\n  steps:\n  - intent: greet\n  - action: utter_greet\n\n- rule: Say goodbye anytime\n  steps:\n  - intent: goodbye\n  - action: utter_goodbye\n\n- rule: Handle affirm\n  steps:\n  - intent: affirm\n  - action: utter_affirm\n\n- rule: Handle deny\n  steps:\n  - intent: deny\n  - action: utter_deny\n\n# --- PARCEL TRACKING ---\n\n- rule: Track parcel by number\n  steps:\n  - intent: track_by_number\n  - action: action_track_parcel\n\n- rule: Explain how to place parcel order\n  steps:\n  - intent: ask_order\n  - action: utter_ask_order\n\n# --- BUS SCHEDULE ---\n\n- rule: Show bus schedule\n  steps:\n  - intent: ask_bus_schedule\n  - action: action_show_bus_schedule\n\n- rule: Explain how to book a bus\n  steps:\n  - intent: ask_how_to_book_bus\n  - action: utter_how_to_book_bus\n\n# --- PRICING ---\n\n- rule: Show pricing information\n  steps:\n  - intent: ask_pricing\n  - action: action_calculate_price\n\n# --- SUPPORT ---\n\n- rule: Provide support contact\n  steps:\n  - intent: ask_support\n  - action: action_contact_admin"
+        }
+    ]
+}
