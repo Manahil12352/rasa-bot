@@ -103,3 +103,6 @@ actions:
   - action_calculate_price
   - action_contact_admin
   - action_llm_fallback
+
+  utter_book_parcel:
+    - text: "Please provide sender city, receiver city, and weight. Example: Book parcel from Lahore to Karachi weighing 3kg"

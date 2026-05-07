@@ -1,0 +1,13 @@
+tracking_number,status,location,estimated_delivery,weight_kg,price,booking_date,sender_city,receiver_city
+PK10001,In Transit,Lahore Hub,2026-04-29,2.5,500,2026-04-25,Lahore,Karachi
+PK10002,Out for Delivery,Karachi North,Today by 6PM,1.2,300,2026-04-26,Karachi,Hyderabad
+PK10003,Delivered,Islamabad F-8,2026-04-24,5.0,800,2026-04-20,Islamabad,Rawalpindi
+PK10004,Picked Up,Lahore Office,2026-04-28,3.0,600,2026-04-27,Lahore,Multan
+PK10005,In Transit,Multan Hub,2026-04-30,10.0,1500,2026-04-24,Multan,Karachi
+PK10006,Delivered,Peshawar City,2026-04-23,1.5,350,2026-04-21,Peshawar,Islamabad
+PK10007,Processing,Lahore Warehouse,2026-05-01,7.0,1200,2026-04-27,Lahore,Quetta
+PK10008,In Transit,Sukkur Stop,2026-04-28,4.0,700,2026-04-26,Karachi,Sukkur
+PK10009,Out for Delivery,Gujranwala,Today by 8PM,0.8,200,2026-04-27,Lahore,Gujranwala
+PK10010,Delivered,Faisalabad,2026-04-25,6.0,1000,2026-04-22,Faisalabad,Lahore
+PK10011,In Transit,Rawalpindi Hub,2026-04-29,2.0,450,2026-04-26,Rawalpindi,Islamabad
+PK10012,Pending,Pickup Scheduled,2026-05-02,15.0,2000,2026-04-27,Karachi,Peshawar

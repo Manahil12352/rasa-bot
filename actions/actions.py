@@ -1,124 +1,137 @@
 from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+import csv
 import re
-import google.generativeai as genai
+from datetime import datetime
 
+# Load Parcel Data
+PARCEL_DB = {}
+with open('parcel_data.csv', 'r') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        PARCEL_DB[row['tracking_number']] = row
 
-genai.configure(api_key="AIzaSyDeIc5KEj-B4AkUSdLqoZZG7R1NIX4EToI")
-model = genai.GenerativeModel('gemini-pro')
-
-def translate_response(user_message, english_response):
-    """User ki language pe response convert karo"""
-    prompt = f"""
-User message: "{user_message}"
-English response: "{english_response}"
-
-Instructions:
-- If user wrote in English → Keep as is
-- If user wrote in Roman Urdu (e.g., "salam", "kesy ho", "lahore se karachi") → Convert response to Roman Urdu
-- If user wrote in Urdu script → Convert response to Urdu script
-- Keep same meaning, emojis, and formatting
-- Reply with ONLY translated response
-"""
-    try:
-        response = model.generate_content(prompt)
-        return response.text.strip()
-    except:
-        return english_response
-
-class ActionShowBusSchedule(Action):
-    def name(self): return "action_show_bus_schedule"
-    
-    def run(self, dispatcher, tracker, domain):
-        user_msg = tracker.latest_message.get("text", "").lower()
-        
-        # Extract cities
-        cities = {
-            "lahore": "Lahore", "lhr": "Lahore", "لاہور": "Lahore",
-            "karachi": "Karachi", "khi": "Karachi", "کراچی": "Karachi",
-            "islamabad": "Islamabad", "isl": "Islamabad", "اسلام آباد": "Islamabad",
-            "peshawar": "Peshawar", "pesh": "Peshawar", "پشاور": "Peshawar",
+# Load Bus Routes
+BUS_SCHEDULES = {}
+with open('bus_routes.csv', 'r') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        BUS_SCHEDULES[(row['source'], row['destination'])] = {
+            "times": row['times'],
+            "price": f"Rs.{row['price']}",
+            "duration": row['duration']
         }
-        
-        # Urdu city names
-        urdu_cities = {
-            "lahore": "لاہور", "karachi": "کراچی", 
-            "islamabad": "اسلام آباد", "peshawar": "پشاور"
-        }
-        
-        src = None
-        dst = None
-        
-        for word in user_msg.split():
-            if word in cities:
-                if src is None:
-                    src = cities[word]
-                else:
-                    dst = cities[word]
-        
-        if src and dst:
-            schedule = f"🚌 BUS SCHEDULE: {src} → {dst}\n🕐 7AM, 10AM, 1PM, 4PM, 8PM, 11PM\n💰 Fare: Rs.1500-2500"
-            urdu_schedule = f"🚌 بس ٹائم: {urdu_cities.get(src.lower(), src)} → {urdu_cities.get(dst.lower(), dst)}\n🕐 صبح 7, 10, دوپہر 1, شام 4, رات 8, 11 بجے\n💰 کرایہ: 1500-2500 روپے"
-            
-            # Check if user wrote in Urdu
-            if any(u'\u0600' <= c <= u'\u06FF' for c in user_msg):
-                dispatcher.utter_message(text=urdu_schedule)
-            else:
-                dispatcher.utter_message(text=translate_response(user_msg, schedule))
-        else:
-            msg = "Please tell: Lahore to Karachi bus / براہ کرم بتائیں: لاہور سے کراچی بس"
-            dispatcher.utter_message(text=msg)
-        
-        return []
+
+# Load Cities Data
+CITIES = {}
+with open('cities.csv', 'r') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        CITIES[row['city'].lower()] = row
+        CITIES[row['code'].lower()] = row
+
+city_map = {
+    "lhr": "lahore", "lahore": "lahore", "lhore": "lahore",
+    "khi": "karachi", "karachi": "karachi",
+    "isl": "islamabad", "islamabad": "islamabad",
+    "pesh": "peshawar", "peshawar": "peshawar",
+    "mul": "multan", "multan": "multan",
+    "qta": "quetta", "quetta": "quetta",
+}
 
 class ActionTrackParcel(Action):
-    def name(self): return "action_track_parcel"
+    def name(self) -> str:
+        return "action_track_parcel"
     
     def run(self, dispatcher, tracker, domain):
-        user_msg = tracker.latest_message.get("text", "")
-        match = re.search(r'pk\d{3,10}', user_msg.lower())
+        text = tracker.latest_message.get("text", "")
+        match = re.search(r'PK\d{5}', text.upper())
         
         if match:
-            tracking = match.group().upper()
-            english = f"📦 PARCEL: {tracking}\n✅ Status: In Transit\n📍 Location: Lahore Hub"
-            urdu = f"📦 پارسل: {tracking}\n✅ حیثیت: راستے میں\n📍 مقام: لاہور ہب"
+            tracking = match.group()
+            parcel = PARCEL_DB.get(tracking)
             
-            if any(u'\u0600' <= c <= u'\u06FF' for c in user_msg):
-                dispatcher.utter_message(text=urdu)
+            if parcel:
+                message = f"📦 PARCEL STATUS: {tracking}\n\n"
+                message += f"✅ Status: {parcel['status']}\n"
+                message += f"📍 Location: {parcel['location']}\n"
+                message += f"📅 Expected Delivery: {parcel['estimated_delivery']}\n"
+                message += f"⚖️ Weight: {parcel['weight_kg']} kg\n"
+                message += f"💰 Price: Rs.{parcel['price']}\n"
+                message += f"🚚 From: {parcel['sender_city']} → To: {parcel['receiver_city']}"
+                dispatcher.utter_message(text=message)
             else:
-                dispatcher.utter_message(text=translate_response(user_msg, english))
+                dispatcher.utter_message(text=f"❌ No parcel found with tracking number {tracking}")
         else:
-            dispatcher.utter_message(text="Please provide tracking number like PK12345 / براہ کرم ٹریکنگ نمبر دیں PK12345")
+            dispatcher.utter_message(text="Please provide tracking number (e.g., PK10001)")
         return []
 
-class ActionContactAdmin(Action):
-    def name(self): return "action_contact_admin"
+class ActionBookParcel(Action):
+    def name(self) -> str:
+        return "action_book_parcel"
     
     def run(self, dispatcher, tracker, domain):
-        user_msg = tracker.latest_message.get("text", "")
-        english = "📞 Support: +92-300-1234567 | support@yourapp.com"
-        urdu = "📞 سپورٹ: +92-300-1234567 | ای میل: support@yourapp.com"
+        # Get slots
+        sender = tracker.get_slot("sender_city")
+        receiver = tracker.get_slot("receiver_city")
+        weight = tracker.get_slot("weight")
         
-        if any(u'\u0600' <= c <= u'\u06FF' for c in user_msg):
-            dispatcher.utter_message(text=urdu)
+        if not sender or not receiver:
+            message = "📦 PARCEL BOOKING GUIDE\n\n"
+            message += "To book a parcel, provide:\n"
+            message += "1️⃣ Sender city\n"
+            message += "2️⃣ Receiver city\n"
+            message += "3️⃣ Weight (kg)\n\n"
+            message += "Example: 'Book parcel from Lahore to Karachi weighing 5kg'"
+            dispatcher.utter_message(text=message)
         else:
-            dispatcher.utter_message(text=translate_response(user_msg, english))
+            # Calculate price
+            base_price = CITIES.get(sender.lower(), {}).get('base_price_parcel', 200)
+            total_price = base_price * (int(weight) if weight else 1)
+            
+            message = f"✅ PARCEL BOOKING CONFIRMED!\n\n"
+            message += f"📤 From: {sender}\n"
+            message += f"📥 To: {receiver}\n"
+            message += f"⚖️ Weight: {weight} kg\n"
+            message += f"💰 Total Price: Rs.{total_price}\n\n"
+            message += f"Tracking number will be sent via SMS. Thank you!"
+            dispatcher.utter_message(text=message)
+        return []
+
+class ActionShowBusSchedule(Action):
+    def name(self) -> str:
+        return "action_show_bus_schedule"
+    
+    def run(self, dispatcher, tracker, domain):
+        text = tracker.latest_message.get("text", "").lower()
+        
+        src, dst = None, None
+        for word in text.split():
+            if word in city_map:
+                if src is None:
+                    src = city_map[word]
+                else:
+                    dst = city_map[word]
+        
+        if src and dst:
+            schedule = BUS_SCHEDULES.get((src, dst))
+            if schedule:
+                message = f"🚌 BUS SCHEDULE: {src.title()} → {dst.title()}\n\n"
+                message += f"🕐 Departures: {schedule['times']}\n"
+                message += f"💰 Fare: {schedule['price']}\n"
+                message += f"⏱️ Duration: {schedule['duration']}\n"
+                dispatcher.utter_message(text=message)
+            else:
+                dispatcher.utter_message(text=f"❌ No route from {src.title()} to {dst.title()}")
+        else:
+            dispatcher.utter_message(text="Say: Lahore to Karachi bus")
         return []
 
 class ActionLLMFallback(Action):
-    def name(self): return "action_llm_fallback"
+    def name(self) -> str:
+        return "action_llm_fallback"
     
     def run(self, dispatcher, tracker, domain):
-        user_msg = tracker.latest_message.get("text", "")
-        prompt = f"""User said: "{user_msg}"
-        User may be in English or Urdu/Roman Urdu.
-        Reply in the SAME language.
-        Be helpful - understand bus schedules, parcel tracking, pricing."""
-        
-        try:
-            response = model.generate_content(prompt)
-            dispatcher.utter_message(text=response.text.strip())
-        except:
-            dispatcher.utter_message(text="Sorry, try again! / معاف کیجیے، دوبارہ کوشش کریں!")
+        dispatcher.utter_message(text="Sorry, I didn't understand. Try: 'track PK10001' or 'book parcel'")
         return []

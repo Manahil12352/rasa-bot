@@ -1,0 +1,13 @@
+city,code,region,delivery_time_hours,base_price_parcel
+Lahore,LHR,Punjab,24,200
+Karachi,KHI,Sindh,48,300
+Islamabad,ISL,Federal,30,250
+Peshawar,PEH,KPK,36,280
+Multan,MUL,Punjab,28,220
+Quetta,QTA,Balochistan,72,500
+Rawalpindi,RWP,Punjab,30,250
+Faisalabad,FSD,Punjab,24,200
+Hyderabad,HDY,Sindh,40,320
+Sukkur,SKR,Sindh,45,350
+Gujranwala,GUJ,Punjab,24,200
+Sialkot,SIL,Punjab,24,200

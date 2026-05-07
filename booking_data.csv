@@ -1,0 +1,11 @@
+booking_id,source,destination,date,time,passenger_name,seat_number,bus_company,price,status
+B001,Lahore,Karachi,2026-04-28,7:00 PM,Ahmed Khan,12A,Daewoo,3500,Confirmed
+B002,Lahore,Peshawar,2026-04-29,8:00 AM,Fatima Ali,5B,Faisal Movers,2500,Confirmed
+B003,Karachi,Lahore,2026-04-28,9:00 PM,Bilal Hussain,8C,Skyways,4000,Pending
+B004,Islamabad,Lahore,2026-04-30,1:00 PM,Sana Mir,3A,Daewoo,2000,Confirmed
+B005,Lahore,Islamabad,2026-04-28,8:00 AM,Usman Chaudhry,15D,Faisal Movers,1800,Confirmed
+B006,Peshawar,Islamabad,2026-04-27,7:00 PM,Zara Khan,2B,Niazi Express,1000,Completed
+B007,Multan,Lahore,2026-05-01,9:00 AM,Imran Ali,10C,Skyways,1500,Confirmed
+B008,Karachi,Hyderabad,2026-04-28,2:00 PM,Seema Malik,6E,Daewoo,800,Confirmed
+B009,Islamabad,Peshawar,2026-04-29,11:00 AM,Hassan Raza,4F,Faisal Movers,1200,Pending
+B010,Lahore,Multan,2026-04-30,5:00 PM,Nadia Khan,9G,Skyways,1800,Confirmed

@@ -1,0 +1,9 @@
+source,destination,times,price,duration
+lahore,karachi,7AM-10AM-1PM-4PM-8PM-11PM,1500-2500,18 hours
+lahore,peshawar,8AM-11AM-2PM-5PM-9PM-11PM,2000-3500,7 hours
+karachi,lahore,7AM-12PM-6PM-9PM,3000-4500,18 hours
+peshawar,lahore,7AM-10AM-1PM-4PM-8PM-10PM,2000-3500,7 hours
+islamabad,peshawar,8AM-11AM-3PM-7PM,1000-1500,2.5 hours
+peshawar,islamabad,7AM-10AM-2PM-6PM,1000-1500,2.5 hours
+islamabad,lahore,9AM-1PM-5PM-9PM,1300-2000,4.5 hours
+lahore,islamabad,8AM-12PM-4PM-8PM,1300-2000,4.5 hours
