@@ -1,6 +1,7 @@
 {
   "build": {
-    "builder": "NIXPACKS"
+    "builder": "NIXPACKS",
+    "nixpacksInstallCmd": "pip install setuptools==65.5.0 wheel==0.38.4 && pip install pyyaml==5.4.1 --no-build-isolation && pip install -r requirements.txt"
   },
   "deploy": {
     "startCommand": "rasa run --enable-api --cors \"*\" --port $PORT --host 0.0.0.0"

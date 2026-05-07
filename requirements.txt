@@ -1,4 +1,7 @@
+setuptools==65.5.0
+wheel==0.38.4
+pyyaml==5.4.1
 rasa==3.6.1
-sqlalchemy<2.0
 rasa-sdk
+sqlalchemy<2.0
 google-generativeai
