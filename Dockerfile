@@ -1,14 +1,12 @@
 FROM rasa/rasa:3.6.1-full
 
 USER root
-COPY . /app
+
 WORKDIR /app
+COPY . /app
 
 RUN rasa telemetry disable
 
-RUN pip install --upgrade setuptools==65.5.0 wheel==0.38.4 cython==0.29.36
-
-RUN rasa train
-
 USER 1001
-CMD ["run", "--enable-api", "--cors", "*", "-p", "7860", "-i", "0.0.0.0"]
+
+CMD ["rasa", "run", "--enable-api", "--cors", "*", "--host", "0.0.0.0", "--port", "7860", "--model", "models/20260519-004924-brown-sheave.tar.gz"]
