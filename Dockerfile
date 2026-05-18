@@ -4,9 +4,11 @@ USER root
 COPY . /app
 WORKDIR /app
 
-# Install dependencies and train model
-RUN pip install --upgrade setuptools==65.5.0 wheel==0.38.4 cython==0.29.36 && \
-    rasa train
+RUN rasa telemetry disable
+
+RUN pip install --upgrade setuptools==65.5.0 wheel==0.38.4 cython==0.29.36
+
+RUN rasa train
 
 USER 1001
 CMD ["run", "--enable-api", "--cors", "*", "-p", "7860", "-i", "0.0.0.0"]
