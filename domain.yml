@@ -76,6 +76,8 @@ responses:
     - text: "Contact support: +92-300-1234567"
 
 actions:
+  - action_show_bus_schedule
+  - action_track_parcel
   - action_calculate_price
   - action_contact_admin
   - action_llm_fallback
