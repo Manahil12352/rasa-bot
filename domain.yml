@@ -3,10 +3,43 @@ version: "3.1"
 intents:
   - greet
   - goodbye
-  - ask_bus_schedule
+  - affirm
+  - deny
   - track_by_number
+  - track_parcel
+  - ask_order
+  - ask_how_to_book_bus
+  - ask_bus_schedule
   - ask_pricing
   - ask_support
+  - check_fleet_route
+
+entities:
+  - tracking_number
+  - source_city
+  - destination_city
+
+slots:
+  tracking_number:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: tracking_number
+  
+  source_city:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: source_city
+  
+  destination_city:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: destination_city
 
 responses:
   utter_greet:
@@ -15,11 +48,26 @@ responses:
   utter_goodbye:
     - text: "Goodbye! Have a nice day!"
   
+  utter_affirm:
+    - text: "Great! 😊"
+  
+  utter_deny:
+    - text: "That's okay."
+  
+  utter_ask_order:
+    - text: "To place order: Provide pickup and delivery address."
+  
+  utter_how_to_book_bus:
+    - text: "Book bus online at our website."
+  
   utter_ask_bus_schedule:
     - text: "Let me check the bus schedule for you."
   
+  utter_ask_tracking_number:
+    - text: "Please provide your tracking number."
+  
   utter_track_by_number:
-    - text: "Your parcel is in transit."
+    - text: "Parcel {tracking_number} is in transit."
   
   utter_pricing_calculator:
     - text: "Bus fares: Rs.1500-4500"
