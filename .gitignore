@@ -1,5 +1,9 @@
 venv/
 __pycache__/
 *.pyc
-models/
 .env
+venv/
+.rasa/
+__pycache__/
+*.pyc
+.DS_Store
