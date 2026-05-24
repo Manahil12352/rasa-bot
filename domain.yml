@@ -13,6 +13,16 @@ intents:
   - ask_pricing
   - ask_support
   - check_fleet_route
+  - create_parcel_ticket
+  - track_parcel_ticket
+  - calculate_price
+  - order_history
+  - track_bus_location
+  - cancel_ticket
+  - open_website
+  - book_bus
+  - payment
+  - view_offers
 
 entities:
   - tracking_number
@@ -26,14 +36,14 @@ slots:
     mappings:
       - type: from_entity
         entity: tracking_number
-  
+
   source_city:
     type: text
     influence_conversation: false
     mappings:
       - type: from_entity
         entity: source_city
-  
+
   destination_city:
     type: text
     influence_conversation: false
@@ -44,43 +54,74 @@ slots:
 responses:
   utter_greet:
     - text: "Hello! I am NOVU. How can I help you?"
-  
+
   utter_goodbye:
     - text: "Goodbye! Have a nice day!"
-  
+
   utter_affirm:
     - text: "Great! 😊"
-  
+
   utter_deny:
     - text: "That's okay."
-  
+
   utter_ask_order:
     - text: "To place order: Provide pickup and delivery address."
-  
+
   utter_how_to_book_bus:
     - text: "Book bus online at our website."
-  
+
   utter_ask_bus_schedule:
     - text: "Let me check the bus schedule for you."
-  
+
   utter_ask_tracking_number:
     - text: "Please provide your tracking number."
-  
+
   utter_track_by_number:
     - text: "Parcel {tracking_number} is in transit."
-  
+
   utter_pricing_calculator:
     - text: "Bus fares: Rs.1500-4500"
-  
+
   utter_support_info:
     - text: "Contact support: +92-300-1234567"
 
+  utter_ask_parcel_details:
+    - text: "Please provide: pickup city, delivery city, and weight. Example: 'Send 2kg parcel from Lahore to Karachi'"
+
+  utter_ticket_created:
+    - text: "✅ Parcel ticket created! Your ticket ID is {ticket_id}. Send 'PK{number}' to track."
+
+  utter_booking_options:
+    - text: "How would you like to book?"
+      buttons:
+        - title: "📱 Book on Website"
+          payload: "https://yourbusapp.com/booking"
+        - title: "🎫 Book via WhatsApp"
+          payload: "https://wa.me/923001234567"
+        - title: "📞 Call Support"
+          payload: "tel:+923001234567"
+
+  utter_payment_options:
+    - text: "Choose payment method:"
+      buttons:
+        - title: "💳 Credit Card"
+          payload: "https://yourbusapp.com/payment/card"
+        - title: "🏦 Bank Transfer"
+          payload: "https://yourbusapp.com/payment/bank"
+        - title: "🪙 EasyPaisa"
+          payload: "https://yourbusapp.com/payment/easypaisa"
+
 actions:
-  - action_show_bus_schedule
-  - action_track_parcel
-  - action_calculate_price
-  - action_contact_admin
+  - action_llm_bus_schedule
+  - action_create_parcel_ticket
+  - action_track_parcel_ticket
   - action_llm_fallback
+  - action_calculate_parcel_price
+  - action_view_order_history
+  - action_live_bus_tracking
+  - action_cancel_parcel_ticket
+  - action_handle_abbreviation
+  - action_open_website
 
 session_config:
   session_expiration_time: 60
